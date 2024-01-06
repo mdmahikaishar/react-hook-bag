@@ -1,0 +1,41 @@
+name: Publish
+on:
+  push:
+    branches:
+      - "main"
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Action Setup
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup NodeJs
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Setup Pnpm
+        run: npm install -g pnpm
+
+      - name: Installing Dependencies
+        run: pnpm install
+
+      - name: Linting
+        run: pnpm run lint
+
+      - name: Building
+        run: pnpm run build
+
+      - name: Publishing
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm changeset publish

@@ -1,0 +1,45 @@
+{
+  "name": "react-hook-bag",
+  "version": "0.1.0",
+  "description": "A npm package for useful react hooks. It has many commonly used hooks.",
+  "author": "mdmahikaishar <mdmahikaishar@gmail.com>",
+  "license": "MIT",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "module": "./dist/mjs/index.js",
+  "scripts": {
+    "lint": "tsc --noEmit",
+    "build": "pnpm run build:cjs && pnpm run build:mjs",
+    "build:cjs": "tsc --outDir ./dist/cjs --module commonjs",
+    "build:mjs": "tsc --outDir ./dist/mjs --module es6"
+  },
+  "exports": {
+    ".": [
+      {
+        "types": "./dist/cjs/index.d.ts",
+        "import": "./dist/mjs/index.js",
+        "require": "./dist/cjs/index.js",
+        "default": "./dist/cjs/index.js"
+      }
+    ]
+  },
+  "files": [
+    "dist/cjs",
+    "dist/mjs"
+  ],
+  "keywords": [
+    "react-house",
+    "react-hooks",
+    "use-hooks"
+  ],
+  "peerDependencies": {
+    "react": "^18"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "tslib": "^2",
+    "typescript": "^5"
+  }
+}
